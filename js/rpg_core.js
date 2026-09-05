@@ -8185,6 +8185,9 @@ WebAudio.prototype._onXhrLoad = function(xhr) {
     var array = xhr.response;
     if(Decrypter.hasEncryptedAudio) array = Decrypter.decryptArrayBuffer(array);
     this._readLoopComments(new Uint8Array(array));
+    if (array && array.slice) {
+        array = array.slice(0);
+    }
     WebAudio._context.decodeAudioData(array, function(buffer) {
         this._buffer = buffer;
         this._totalTime = buffer.duration;
@@ -8195,8 +8198,44 @@ WebAudio.prototype._onXhrLoad = function(xhr) {
             this._loopStart = 0;
             this._loopLength = this._totalTime;
         }
+        this._clampLoopPoints();
         this._onLoad();
+    }.bind(this), function() {
+        this._hasError = true;
     }.bind(this));
+};
+
+/**
+ * Keeps Web Audio loop points inside the decoded buffer.
+ * Chrome/Safari distort BGM after the first loop if loopEnd > duration.
+ *
+ * @method _clampLoopPoints
+ * @private
+ */
+WebAudio.prototype._clampLoopPoints = function() {
+    if (this._buffer && this._buffer.duration > 0) {
+        this._totalTime = this._buffer.duration;
+    }
+    var duration = this._totalTime;
+    if (!(duration > 0)) {
+        this._loopStart = 0;
+        this._loopLength = 0;
+        return;
+    }
+    var sampleRate = (this._buffer && this._buffer.sampleRate) || this._sampleRate || 44100;
+    var epsilon = 1 / sampleRate;
+    if (!isFinite(this._loopStart) || this._loopStart < 0) {
+        this._loopStart = 0;
+    }
+    if (!isFinite(this._loopLength) || this._loopLength <= 0 || this._loopStart >= duration) {
+        this._loopStart = 0;
+        this._loopLength = Math.max(epsilon, duration - epsilon);
+        return;
+    }
+    var maxLength = duration - this._loopStart - epsilon;
+    if (this._loopLength > maxLength) {
+        this._loopLength = Math.max(epsilon, maxLength);
+    }
 };
 
 /**
@@ -8227,6 +8266,7 @@ WebAudio.prototype._startPlaying = function(loop, offset) {
  */
 WebAudio.prototype._createNodes = function() {
     var context = WebAudio._context;
+    this._clampLoopPoints();
     this._sourceNode = context.createBufferSource();
     this._sourceNode.buffer = this._buffer;
     this._sourceNode.loopStart = this._loopStart;

@@ -12,5 +12,6 @@ var $plugins =
 {"name":"MOG_DestinationPointer","status":true,"description":"(v1.0) Permite customizar a imagem do cursor do destino.","parameters":{"X-Axis Offset":"0","Y-Axis Offset":"0","Smooth Movement":"true","Zoom Animation":"false","Blink Animation":"false","Float Animation":"true","Blend Mode":"0","Rotation Speed":"0","Number of Frames":"1","Animation Speed":"4"}},
 {"name":"MOG_DizzyEffect","status":true,"description":"(v1.0) Adiciona o efeito Dizzy.","parameters":{}},
 {"name":"MOG_PixiFilters","status":true,"description":"(v1.5) Ativa alguns filtros gráficos padrões do Rpg Maker MV.","parameters":{}},
-{"name":"MOG_AnimatedText","status":true,"description":"(v1.3) Apresenta multiplos textos animados.","parameters":{"Letter Space X-Axis":"0","Letter Space Y-Axis":"0"}}
+{"name":"MOG_AnimatedText","status":true,"description":"(v1.3) Apresenta multiplos textos animados.","parameters":{"Letter Space X-Axis":"0","Letter Space Y-Axis":"0"}},
+{"name":"WebAudioLoopFix","status":true,"description":"Fixes BGM turning to static after the first loop in web browsers (GitHub Pages).","parameters":{}}
 ];
