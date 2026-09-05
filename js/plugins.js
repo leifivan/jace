@@ -4,7 +4,7 @@ var $plugins =
 [
 {"name":"MOG_TitleSplashScreen","status":true,"description":"(v1.0) Adiciona logos antes da tela de título.","parameters":{"Splash Frames":"2","Slash Duration":"90","Splash Fade Duration":"2","Full Screen Mode":"false"}},
 {"name":"------------------------","status":false,"description":"----------------------------------------------------------------------------------","parameters":{}},
-{"name":"Community_Basic","status":true,"description":"Plugin used to set basic parameters.","parameters":{"cacheLimit":"50","screenWidth":"624","screenHeight":"1104","changeWindowWidthTo":"","changeWindowHeightTo":"","renderingMode":"webgl","alwaysDash":"off"}},
+{"name":"Community_Basic","status":true,"description":"Plugin used to set basic parameters.","parameters":{"cacheLimit":"50","screenWidth":"624","screenHeight":"1104","changeWindowWidthTo":"","changeWindowHeightTo":"","renderingMode":"auto","alwaysDash":"off"}},
 {"name":"MadeWithMv","status":false,"description":"Show a Splash Screen \"Made with MV\" and/or a Custom Splash Screen before going to main screen.","parameters":{"Show Made With MV":"true","Made with MV Image":"MadeWithMv","Show Custom Splash":"false","Custom Image":"","Fade Out Time":"120","Fade In Time":"120","Wait Time":"160"}},
 {"name":"MOG_Weather_EX","status":true,"description":"(v3.4 *) Adiciona novos efeitos de climas.","parameters":{"Battle Weather":"false"}},
 {"name":"Yami_SkipTitle","status":true,"description":"Skip the title scene for testing purpose.","parameters":{}},
